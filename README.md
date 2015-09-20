@@ -2,3 +2,4 @@
 Visualizing the properties of random spanning trees. 
 Members:
 Madis-Karli Koppel
+Hans Raukas
