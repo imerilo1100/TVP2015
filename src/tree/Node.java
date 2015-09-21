@@ -26,6 +26,8 @@ public class Node {
 	
 	//Getters, setters.
 	public List<Node> getChildren() {return children;} 
+	public int getX() {return x;} 
+	public int getY() {return y;} 
 	//Adding and removal. 
 	public void addChild(Node node) {children.add(node);} 
 	
