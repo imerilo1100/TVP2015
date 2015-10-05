@@ -6,19 +6,19 @@ import java.util.ArrayList;
 public class Node {
 	private String label = ""; 
 	private List<Node> children = new ArrayList<Node>(); 
-	private int x;
-	private int y; 
+	private double x = 0.0;
+	private double y = 0.0; 
 	
 	//Constructors. 
 	Node(){}
 	Node(String label){
 		this.label = label;
 	}
-	Node(int x, int y){
+	Node(double x, double y){
 		this.x=x; 
 		this.y=y;
 	}
-	Node(String label, int x, int y){
+	Node(String label, double x, double y){
 		this.label = label;
 		this.x=x; 
 		this.y=y;
@@ -26,8 +26,8 @@ public class Node {
 	
 	//Getters, setters.
 	public List<Node> getChildren() {return children;} 
-	public int getX() {return x;} 
-	public int getY() {return y;} 
+	public double getX() {return x;} 
+	public double getY() {return y;} 
 	//Adding and removal. 
 	public void addChild(Node node) {children.add(node);} 
 	
