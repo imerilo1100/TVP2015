@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Node {
 	private String label = ""; 
+	private Node parent = null; 
 	private List<Node> children = new ArrayList<Node>(); 
 	private double x = 0.0;
 	private double y = 0.0; 
@@ -18,18 +19,39 @@ public class Node {
 		this.x=x; 
 		this.y=y;
 	}
+	Node(Node parent, double x, double y){
+		this.parent = parent;
+		this.x=x; 
+		this.y=y;
+	}
 	Node(String label, double x, double y){
 		this.label = label;
 		this.x=x; 
 		this.y=y;
 	}
+	Node(String label, Node parent, double x, double y){
+		this.parent = parent;
+		this.label = label;
+		this.x=x; 
+		this.y=y;
+	}
 	
-	//Getters, setters.
+	//Getters
 	public List<Node> getChildren() {return children;} 
+	public Node getParent() {return parent;} 
 	public double getX() {return x;} 
 	public double getY() {return y;} 
+	//Setters.
+	private void setParent(Node parent) {this.parent=parent;}
 	//Adding and removal. 
-	public void addChild(Node node) {children.add(node);} 
+	public void addChild(Node node) {
+		children.add(node);
+		node.setParent(this);
+	} 
+	public void removeChild(Node node) {
+		children.remove(node);
+		node.setParent(null);
+	} 
 	
 	@Override
 	public String toString() {

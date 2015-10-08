@@ -11,6 +11,8 @@ public class DrawingUtils {
 	static int radius = 4; 
 	
 	public static void drawTree(Tree tree, Pane nodeCanvas, Pane edgeCanvas) {
+		nodeCanvas.getChildren().clear();
+		edgeCanvas.getChildren().clear();
 		Node root = tree.getRoot(); 
 		if (root!=null) {
 			drawNode(root.getX(), root.getY(), nodeCanvas);

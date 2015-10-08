@@ -1,7 +1,7 @@
 package tree;
 
 public class Tree {
-	Node root; 
+	private Node root; 
 
 	//Constructors
 	Tree(){}
