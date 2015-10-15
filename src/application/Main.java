@@ -24,7 +24,7 @@ import tree.ModifyTree;
 public class Main extends Application { 
 	//Tools, random variables and data structures. 
 	int fastforwardNValue = 1000; //TODO: Give user the ability to choose another value
-	int timedStepInterval = 3000; //TODO: Give user the ability to choose another value
+	int timedStepInterval = 1000; //TODO: Give user the ability to choose another value
 	Timer timer;
 	Tree tree; 
 	//Panes. 
@@ -129,15 +129,25 @@ public class Main extends Application {
         });
 		ffButton2.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
-            	//TODO: This will need fixing since the coputer tends to overwork itself...
+            	//TODO: This will need fixing since the computer tends to overwork itself...
             	if (!fastForward) {
             		toolBarButtonsAllFalse();
             		ffButton2.setText("FastForward [ON]");
             		fastForward = true; 
-            		while (fastForward) {
-            			ModifyTree.addNewEdge(tree);
-            			//TODO: Display label informing user about no redraws. 
-            		}
+            		timer = new Timer();
+            		//TODO: Display label informing user about no redraws. 
+            	    timer.scheduleAtFixedRate(new TimerTask() {
+            	        @Override
+            	        public void run() {
+            	        	Platform.runLater(new Runnable() {
+            	        		public void run() {
+            	        			for (int i=0; i<10; i++) {
+            	        				ModifyTree.addNewEdge(tree);
+                        			}
+            	        		}
+            	        	});
+            	        }
+            	    }, 0, 1); 
             		DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
             	} else {toolBarButtonsAllFalse();}
             }
