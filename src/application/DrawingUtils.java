@@ -15,25 +15,23 @@ public class DrawingUtils {
 		edgeCanvas.getChildren().clear();
 		Node root = tree.getRoot(); 
 		if (root!=null) {
-			drawNode(root.getX(), root.getY(), nodeCanvas);
+			drawNode(root, nodeCanvas);
 			drawBranches(root,nodeCanvas, edgeCanvas);
 		}
 	}
 
 	private static void drawBranches(Node parent, Pane nodeCanvas, Pane edgeCanvas) {
-		double x1 = parent.getX(); 
-		double y1 = parent.getY();
 		for (Node child : parent.getChildren()) {
-			drawEdge(x1, y1, child.getX(), child.getY(), edgeCanvas);
-			drawNode(child.getX(), child.getY(), nodeCanvas);
+			drawEdge(parent.getX(), parent.getY(), child.getX(), child.getY(), edgeCanvas);
+			drawNode(child, nodeCanvas);
 			drawBranches(child, nodeCanvas, edgeCanvas);
 		}
 	}
 	
-	private static void drawNode(double x, double y, Pane nodeCanvas){
-		Circle node = new Circle(radius, Color.BLUE);
-		node.relocate(x, y);	
-	    nodeCanvas.getChildren().add(node);
+	private static void drawNode(Node node, Pane nodeCanvas){
+		Circle drawnNode = new Circle(radius, Color.BLUE);
+		drawnNode.relocate(node.getX(), node.getY());
+	    nodeCanvas.getChildren().add(drawnNode);
 	}
 	
 	private static void drawEdge(double x1, double y1, double x2, double y2, Pane edgeCanvas){
