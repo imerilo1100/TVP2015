@@ -66,12 +66,12 @@ public class Main extends Application {
 			AnchorPane.setLeftAnchor(edgeCanvas, 320.0);
 			AnchorPane.setLeftAnchor(nodeCanvas, 320.0);
 			AnchorPane.setLeftAnchor(statsPane, 0.0);
-			//Add panes to the rootpane, populate panes. 
+			//Add panes to the root pane, populate panes. 
 			root.getChildren().addAll(statsPane, toolbar, edgeCanvas, nodeCanvas);
 			addToolbarButtons();
 			//Create and draw arbitrary initial tree. 
 			//TODO Created tree should probably be more random than this; replace function.
-			tree = CreateTree.CreateCompleteTree2(5, 3, 680, 620); //TODO actual finding height. 
+			tree = CreateTree.CreateCompleteTreeOffsetCircular(5, 3, 680, 620); //TODO actual finding height. 
 			DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -82,6 +82,7 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	//Buttons should have graphics and tooltips?
 	private void addToolbarButtons(){
 		nextButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
@@ -117,10 +118,8 @@ public class Main extends Application {
             		toolBarButtonsAllFalse();
             		ffButton1.setText("FastForward(" + fastforwardNValue + ") [ON]");
                 	fastForwardN = true;
-            		for (int i=0; i<fastforwardNValue; i++) {
-            			ModifyTree.addNewEdge(tree);
-            			//TODO: Display label informing the user about no redraws. 
-            		}
+                	//TODO: Display label informing user about no redraws.
+            		for (int i=0; i<fastforwardNValue; i++) {ModifyTree.addNewEdge(tree);}
                 	fastForwardN = false;
                 	DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas);
             		ffButton1.setText("FastForward(" + fastforwardNValue + ")");
@@ -129,7 +128,6 @@ public class Main extends Application {
         });
 		ffButton2.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
-            	//TODO: This will need fixing since the computer tends to overwork itself...
             	if (!fastForward) {
             		toolBarButtonsAllFalse();
             		ffButton2.setText("FastForward [ON]");
@@ -140,11 +138,7 @@ public class Main extends Application {
             	        @Override
             	        public void run() {
             	        	Platform.runLater(new Runnable() {
-            	        		public void run() {
-            	        			for (int i=0; i<10; i++) {
-            	        				ModifyTree.addNewEdge(tree);
-                        			}
-            	        		}
+            	        		public void run() {ModifyTree.addNewEdge(tree);}
             	        	});
             	        }
             	    }, 0, 1); 
