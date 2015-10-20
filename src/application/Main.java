@@ -3,6 +3,8 @@ package application;
 //Java imports. 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.HashMap;
+import java.util.Map;
 
 //Java(fx) imports
 import javafx.application.Application;
@@ -10,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.shape.Circle;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,12 +22,14 @@ import javafx.scene.layout.Pane;
 //Custom imports. 
 import tree.CreateTree;
 import tree.Tree;
+import tree.Node;
 import tree.ModifyTree;
 
 public class Main extends Application { 
 	//Tools, random variables and data structures. 
 	int fastforwardNValue = 1000; //TODO: Give user the ability to choose another value
 	int timedStepInterval = 1000; //TODO: Give user the ability to choose another value
+	Map<Circle, Node> representationToNodeMap = new HashMap<Circle, Node>();
 	Timer timer;
 	Tree tree; 
 	//Panes. 
@@ -72,7 +77,7 @@ public class Main extends Application {
 			//Create and draw arbitrary initial tree. 
 			//TODO Created tree should probably be more random than this; replace function.
 			tree = CreateTree.CreateCompleteTreeOffsetCircular(5, 3, 680, 620); //TODO actual finding height. 
-			DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
+			DrawingUtils.drawEntireTree(tree, nodeCanvas, edgeCanvas, representationToNodeMap); 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -86,15 +91,15 @@ public class Main extends Application {
 	private void addToolbarButtons(){
 		nextButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
-            	toolBarButtonsAllFalse();
+            	modificationButtonsAllFalse();
 				ModifyTree.addNewEdge(tree); 
-				DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
+				DrawingUtils.redrawEdges(tree, edgeCanvas); 
             }
         });
 		timedstepButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
             	if (!timedStep) {
-            		toolBarButtonsAllFalse();
+            		modificationButtonsAllFalse();
             		timedstepButton.setText("Timed-step [ON]");
             		timedStep = true; 
             		timer = new Timer(); 
@@ -104,32 +109,32 @@ public class Main extends Application {
             	        	Platform.runLater(new Runnable() {
             	        		public void run() {
             	        			ModifyTree.addNewEdge(tree); 
-            	        			DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
+            	        			DrawingUtils.redrawEdges(tree, edgeCanvas);
             	        		}
             	        	});
             	        }
             	    }, 0, timedStepInterval); 
-            	} else {toolBarButtonsAllFalse();}
+            	} else {modificationButtonsAllFalse();}
             }
         });
 		ffButton1.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
             	if (!fastForward) {
-            		toolBarButtonsAllFalse();
+            		modificationButtonsAllFalse();
             		ffButton1.setText("FastForward(" + fastforwardNValue + ") [ON]");
                 	fastForwardN = true;
                 	//TODO: Display label informing user about no redraws.
             		for (int i=0; i<fastforwardNValue; i++) {ModifyTree.addNewEdge(tree);}
                 	fastForwardN = false;
-                	DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas);
+                	DrawingUtils.redrawEdges(tree, edgeCanvas); 
             		ffButton1.setText("FastForward(" + fastforwardNValue + ")");
-            	} else {toolBarButtonsAllFalse();}
+            	} else {modificationButtonsAllFalse();}
             }
         });
 		ffButton2.setOnMouseClicked( new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
             	if (!fastForward) {
-            		toolBarButtonsAllFalse();
+            		modificationButtonsAllFalse();
             		ffButton2.setText("FastForward [ON]");
             		fastForward = true; 
             		timer = new Timer();
@@ -142,14 +147,14 @@ public class Main extends Application {
             	        	});
             	        }
             	    }, 0, 1); 
-            		DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
-            	} else {toolBarButtonsAllFalse();}
+            	    DrawingUtils.redrawEdges(tree, edgeCanvas); 
+            	} else {modificationButtonsAllFalse();}
             }
         });
 		toolbar.getChildren().addAll(nextButton,timedstepButton,ffButton1,ffButton2); 
 	}
 	
-	private void toolBarButtonsAllFalse() {
+	private void modificationButtonsAllFalse() {
 		timedstepButton.setText("Timed-step");
 		ffButton1.setText("FastForward(" + fastforwardNValue + ")");
 		ffButton2.setText("FastForward");
@@ -157,7 +162,7 @@ public class Main extends Application {
     	fastForward = false; 
     	timedStep = false; 
     	if (timer!=null) timer.cancel();
-    	DrawingUtils.drawTree(tree, nodeCanvas, edgeCanvas); 
+    	DrawingUtils.redrawEdges(tree, edgeCanvas); 
 	}
 	
 }
