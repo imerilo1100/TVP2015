@@ -3,8 +3,6 @@ package application;
 //Java imports. 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.HashMap;
-import java.util.Map;
 
 //Java(fx) imports
 import javafx.application.Application;
@@ -12,7 +10,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,14 +19,12 @@ import javafx.scene.layout.Pane;
 //Custom imports. 
 import tree.CreateTree;
 import tree.Tree;
-import tree.Node;
 import tree.ModifyTree;
 
 public class Main extends Application { 
 	//Tools, random variables and data structures. 
 	int fastforwardNValue = 1000; //TODO: Give user the ability to choose another value
 	int timedStepInterval = 1000; //TODO: Give user the ability to choose another value
-	Map<Circle, Node> representationToNodeMap = new HashMap<Circle, Node>();
 	Timer timer;
 	Tree tree; 
 	//Panes. 
@@ -43,11 +38,11 @@ public class Main extends Application {
 	Button ffButton2 = new Button("FastForward");
 	Button ffButton1 = new Button("FastForward(" + fastforwardNValue + ")");
 	Button timedstepButton = new Button("Timed-step");
+	Button toggleNodeDragAndDropButton = new Button("Node drag-and-drop [OFF]");
 	//Flags. 
 	Boolean timedStep = false; 
 	Boolean fastForward = false;
 	Boolean fastForwardN = false;
-	Boolean nodeDragAndDrop = false;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -77,7 +72,7 @@ public class Main extends Application {
 			//Create and draw arbitrary initial tree. 
 			//TODO Created tree should probably be more random than this; replace function.
 			tree = CreateTree.CreateCompleteTreeOffsetCircular(5, 3, 680, 620); //TODO actual finding height. 
-			DrawingUtils.drawEntireTree(tree, nodeCanvas, edgeCanvas, representationToNodeMap); 
+			DrawingUtils.drawEntireTree(tree, nodeCanvas, edgeCanvas); 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -151,7 +146,22 @@ public class Main extends Application {
             	} else {modificationButtonsAllFalse();}
             }
         });
-		toolbar.getChildren().addAll(nextButton,timedstepButton,ffButton1,ffButton2); 
+		toggleNodeDragAndDropButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+            	if (!DrawingUtils.nodeDragAndDropEnabled) {
+            		toggleNodeDragAndDropButton.setText("Node drag-and-drop [ON]");
+            		DrawingUtils.nodeDragAndDropEnabled=true;
+            	} else {
+            		toggleNodeDragAndDropButton.setText("Node drag-and-drop [OFF]");
+            		DrawingUtils.nodeDragAndDropEnabled=false; 
+            	}
+            }
+        });
+		toolbar.getChildren().addAll(nextButton,
+									 timedstepButton,
+									 ffButton1,
+									 ffButton2,
+									 toggleNodeDragAndDropButton); 
 	}
 	
 	private void modificationButtonsAllFalse() {

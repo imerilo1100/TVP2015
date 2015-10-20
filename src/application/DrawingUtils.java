@@ -1,25 +1,26 @@
 package application;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import java.util.Map;
 import tree.Node;
 import tree.Tree;
 
 public class DrawingUtils {
+	static boolean nodeDragAndDropEnabled = false; 
 	static int radius = 4; 
 	
 	//Draws the entire tree, nodes and edges
-	public static void drawEntireTree(Tree tree, Pane nodeCanvas, Pane edgeCanvas, Map<Circle, Node> representationToNodeMap) {
-		representationToNodeMap.clear(); 
+	public static void drawEntireTree(Tree tree, Pane nodeCanvas, Pane edgeCanvas) {
 		nodeCanvas.getChildren().clear();
 		edgeCanvas.getChildren().clear();
 		Node root = tree.getRoot(); 
 		if (root!=null) {
-			drawNode(root, nodeCanvas, representationToNodeMap);
-			drawBranches(root,nodeCanvas, edgeCanvas, representationToNodeMap);
+			drawNode(root, nodeCanvas);
+			drawBranches(root,nodeCanvas, edgeCanvas);
 		}
 	}
 	
@@ -31,11 +32,11 @@ public class DrawingUtils {
 	}
 
 	//Draws the branches of a fully redrawn tree.
-	private static void drawBranches(Node parent, Pane nodeCanvas, Pane edgeCanvas, Map<Circle, Node> representationToNodeMap) {
+	private static void drawBranches(Node parent, Pane nodeCanvas, Pane edgeCanvas) {
 		for (Node child : parent.getChildren()) {
 			drawEdge(parent.getX(), parent.getY(), child.getX(), child.getY(), edgeCanvas);
-			drawNode(child, nodeCanvas, representationToNodeMap);
-			drawBranches(child, nodeCanvas, edgeCanvas, representationToNodeMap);
+			drawNode(child, nodeCanvas);
+			drawBranches(child, nodeCanvas, edgeCanvas);
 		}
 	}
 	//Draws branches for edges-only redraws.
@@ -46,11 +47,21 @@ public class DrawingUtils {
 		}
 	}
 	
-	//Draws a node and adds it to map. 
-	private static void drawNode(Node node, Pane nodeCanvas, Map<Circle, Node> representationToNodeMap){
+	//Draws a node and enables relocating it. 
+	//TODO: edges should move along with node...
+	private static void drawNode(Node node, Pane nodeCanvas){
 		Circle drawnNode = new Circle(radius, Color.BLUE);
 		drawnNode.relocate(node.getX(), node.getY());
-		representationToNodeMap.put(drawnNode, node);
+		drawnNode.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent mouseEvent) {
+				if (nodeDragAndDropEnabled) {
+					drawnNode.setCenterX(mouseEvent.getX());
+					drawnNode.setCenterY(mouseEvent.getY());
+					node.setX(mouseEvent.getSceneX()-320.0-radius);
+					node.setY(mouseEvent.getSceneY()-30.0-radius);
+				}
+			}
+		});
 	    nodeCanvas.getChildren().add(drawnNode);
 	}
 	

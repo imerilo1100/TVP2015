@@ -43,6 +43,8 @@ public class Node {
 	public double getY() {return y;} 
 	//Setters.
 	private void setParent(Node parent) {this.parent=parent;}
+	public void setX(double x) {this.x=x;} 
+	public void setY(double y) {this.y=y;} 
 	//Adding and removal. 
 	public void addChild(Node node) {
 		children.add(node);
