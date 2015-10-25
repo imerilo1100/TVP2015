@@ -49,8 +49,8 @@ public class DrawingUtils {
 	
 	//Draws a node and enables relocating it. 
 	//TODO: edges should move along with node...
-	private static void drawNode(Node node, Pane nodeCanvas){
-		Circle drawnNode = new Circle(radius, Color.BLUE);
+	private static void drawNode(final Node node, Pane nodeCanvas){
+		final Circle drawnNode = new Circle(radius, Color.BLUE);
 		drawnNode.relocate(node.getX(), node.getY());
 		drawnNode.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent mouseEvent) {
