@@ -1,11 +1,11 @@
-package statistics;
+package main.java.statistics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import tree.Node;
-import tree.Tree;
+import main.java.tree.Node;
+import main.java.tree.Tree;
 
 public class BasicStatistics {
 	public static int countNodes(Tree tree){

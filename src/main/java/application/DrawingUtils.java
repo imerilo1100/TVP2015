@@ -1,4 +1,4 @@
-package application;
+package main.java.application;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import tree.Node;
-import tree.Tree;
+import main.java.tree.Node;
+import main.java.tree.Tree;
 
 public class DrawingUtils {
 	static boolean nodeDragAndDropEnabled = false; 

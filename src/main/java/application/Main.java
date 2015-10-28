@@ -1,4 +1,4 @@
-package application;
+package main.java.application;
 
 //Java imports. 
 import java.util.Timer;
@@ -8,18 +8,16 @@ import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-
-//Custom imports. 
-import tree.CreateTree;
-import tree.Tree;
-import tree.ModifyTree;
+import javafx.stage.Stage;
+import main.java.tree.CreateTree;
+import main.java.tree.ModifyTree;
+import main.java.tree.Tree;
 
 public class Main extends Application { 
 	//Tools, random variables and data structures. 
