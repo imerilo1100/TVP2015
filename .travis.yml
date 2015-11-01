@@ -1,8 +1,14 @@
 language: java
 jdk:
-  - oraclejdk8
-addons:
-    artifacts: true
-    s3_region: "eu-central-1"
-        paths:
-            - ./target/TVP2015-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+- oraclejdk8
+deploy:
+  provider: s3
+  access_key_id: AKIAIBCXV3JRXUQZFWTA
+  secret_access_key:
+    secure: nx5IEiYlZ0I110llldibrmGKltBBoCA9n/rCGlHVFtPsHL5KGKZHS7mlMCGUgyu6z4xPDCgi7zuMswwidgk8ScHFcaSlLuTzgX2mRiO77+JfbiVdTojrmAdm+AJo06fizxLjfW4Ori/mbNK4bUyEM5jZxDV+z+9QxxbbYrXNSNVm3t45gGcJJJ4FPSOLvKktkRvG4ebv+e/O7TXx2pppyeTjv3FjiXu1QgeR79h9FL7G92caFAVHRrqUq9LpGsjpTLBEV+Y9EhCOCBn+8FcqF2I3LcqLgkShIYcOouhpPsaMf1ARw+AbdpIWf0AHaAU40V7ZVSol2jfO50HloOzVR28AAm7SEBNwlZPZx7rQCTmQfOuwv/o+Uz86GujFSnMfeUmdjTguclC2s+4NfTvKSg7FuCum6hHqL3I92Kceax0jTxTvFRK1wlN00h2arBwta6WsABHg4/CF5NN8jPmW8tf8RAT74LYgV6CF3EDljbUrUDJWef8otncjv8i+vaFukJmQIoWjZJTe4wK5r6Amov5dN/fsgAhdHFnPp3wkkdYV6eGSbO7R6zekRiEuZ5nlwXaSnDpYzUh5CitjV5HGA4npoGcT7U9Ayo2YZchNlsqfJ6nxcHxcp3KW+RVMsiHgdQTgCi5BKfSNN3eAll4RSEeBBkkqDXge7Za388BwiDo=
+  bucket: tvp2015
+  skip_cleanup: true
+  local-dir: target/TVP2015-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+  acl: public_read
+  on:
+    repo: imerilo1100/TVP2015
