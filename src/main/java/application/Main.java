@@ -1,4 +1,4 @@
-package main.java.application;
+package application;
 
 //Java imports. 
 import java.util.Timer;
@@ -15,9 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import main.java.tree.CreateTree;
-import main.java.tree.ModifyTree;
-import main.java.tree.Tree;
+import tree.CreateTree;
+import tree.ModifyTree;
+import tree.Tree;
 
 public class Main extends Application { 
 	//Tools, random variables and data structures. 

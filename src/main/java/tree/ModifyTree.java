@@ -1,10 +1,10 @@
-package main.java.tree;
+package tree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import main.java.statistics.BasicStatistics;
+import statistics.BasicStatistics;
 
 public class ModifyTree {
 	

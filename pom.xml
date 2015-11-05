@@ -5,12 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>TVP2015</groupId>
 	<artifactId>TVP2015</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>src</directory>
+				<directory>src/main/java</directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
@@ -20,17 +19,13 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
-				<configuration>
-					<source/>
-					<target/>
-				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>main.java.application.Main</mainClass>
+							<mainClass>application.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
