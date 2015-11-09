@@ -40,7 +40,7 @@ public class Node {
 	public List<Node> getChildren() {return children;} 
 	public Node getParent() {return parent;} 
 	public double getX() {return x;} 
-	public double getY() {return y;} 
+	public double getY() {return y;}  
 	//Setters.
 	private void setParent(Node parent) {this.parent=parent;}
 	public void setX(double x) {this.x=x;} 

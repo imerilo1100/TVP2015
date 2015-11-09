@@ -6,7 +6,7 @@ import java.util.List;
 public class CreateTree {
 	//TODO: Try to ensure that nodes do not overlap. Currently no check and not optimal node positioning.  
 
-	/* Existing vatriations: 
+	/* Existing variations: 
 	 * CreateCompleteTreeTriangle(int height, int branchesPerNode, double x, double y)
 	 * CreateCompleteTreeOffSetTriangle(int height, int branchesPerNode, double x, double y)
 	 * CreateCompleteTreeCircular(int height, int branchesPerNode, double x, double y)

@@ -1,6 +1,6 @@
 package tree;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,10 +30,10 @@ public class ModifyTree {
 		if (orderOfNode==0) return startNode; 
 		Node nodeToBeFetched = null;
 		int  count = 0;
-		List<Node> nodes = new ArrayList<Node>();
+		List<Node> nodes = new LinkedList<Node>();
 		nodes.addAll(startNode.getChildren()); 
 		while (count<orderOfNode) {
-			List<Node> temp = new ArrayList<Node>();
+			List<Node> temp = new LinkedList<Node>();
 			temp.addAll(nodes);
 			nodes.clear(); 
 			for (Node node : temp) {

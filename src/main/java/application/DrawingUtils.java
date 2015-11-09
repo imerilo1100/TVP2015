@@ -34,7 +34,7 @@ public class DrawingUtils {
 	//Draws the branches of a fully redrawn tree.
 	private static void drawBranches(Node parent, Pane nodeCanvas, Pane edgeCanvas) {
 		for (Node child : parent.getChildren()) {
-			drawEdge(parent.getX(), parent.getY(), child.getX(), child.getY(), edgeCanvas);
+			drawEdge(parent, child, edgeCanvas);
 			drawNode(child, nodeCanvas);
 			drawBranches(child, nodeCanvas, edgeCanvas);
 		}
@@ -42,15 +42,15 @@ public class DrawingUtils {
 	//Draws branches for edges-only redraws.
 	private static void drawBranches(Node parent, Pane edgeCanvas) {
 		for (Node child : parent.getChildren()) {
-			drawEdge(parent.getX(), parent.getY(), child.getX(), child.getY(), edgeCanvas);
+			drawEdge(parent, child, edgeCanvas);
 			drawBranches(child, edgeCanvas);
 		}
 	}
 	
 	//Draws a node and enables relocating it. 
 	//TODO: edges should move along with node...
-	private static void drawNode(final Node node, Pane nodeCanvas){
-		final Circle drawnNode = new Circle(radius, Color.BLUE);
+	private static void drawNode(Node node, Pane nodeCanvas){
+		Circle drawnNode = new Circle(radius, Color.BLUE);
 		drawnNode.relocate(node.getX(), node.getY());
 		drawnNode.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent mouseEvent) {
@@ -66,8 +66,11 @@ public class DrawingUtils {
 	}
 	
 	//Draws an edge. 
-	private static void drawEdge(double x1, double y1, double x2, double y2, Pane edgeCanvas){
-		Line edge = new Line(x1+radius, y1+radius, x2+radius, y2+radius);
+	private static void drawEdge(Node parent, Node child, Pane edgeCanvas){
+		Line edge = new Line(parent.getX()+radius,
+							 parent.getY()+radius,
+							 child.getX()+radius,
+							 child.getY()+radius);
 		edge.setStrokeWidth(2);
 	    edgeCanvas.getChildren().add(edge);
 	}

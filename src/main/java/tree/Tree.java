@@ -4,9 +4,9 @@ public class Tree {
 	private Node root; 
 
 	//Constructors
-	Tree(){}
+	Tree(){this.root=new Node();}
 	Tree(Node root){this.root=root;}
-	Tree(String root){this.root=new Node("Root");}
+	Tree(String root){this.root=new Node(root);}
 	
 	//Getters and setters. 
 	public Node getRoot() {return root;}

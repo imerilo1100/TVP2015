@@ -2,36 +2,36 @@ package application;
 
 //Java imports. 
 import java.util.Timer;
-import java.util.TimerTask;
-
 //Java(fx) imports
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import statistics.Statistics;
+//Custom imports
 import tree.CreateTree;
-import tree.ModifyTree;
 import tree.Tree;
 
 public class Main extends Application { 
 	//Tools, random variables and data structures. 
 	int fastforwardNValue = 1000; //TODO: Give user the ability to choose another value
 	int timedStepInterval = 1000; //TODO: Give user the ability to choose another value
+	StatisticsBase statsBase;
+	Statistics stats;
 	Timer timer;
 	Tree tree; 
 	//Panes. 
 	AnchorPane root = new AnchorPane();
-	Pane statsPane  = new Pane();
+	Pane statsPane  = new VBox();
 	Pane edgeCanvas = new Pane();
 	Pane nodeCanvas = new Pane();
 	HBox toolbar    = new HBox(); 
 	//Buttons.
+	Buttons buttons = new Buttons(); 
 	Button nextButton = new Button("Next");
 	Button ffButton2 = new Button("FastForward");
 	Button ffButton1 = new Button("FastForward(" + fastforwardNValue + ")");
@@ -64,113 +64,21 @@ public class Main extends Application {
 			AnchorPane.setLeftAnchor(edgeCanvas, 320.0);
 			AnchorPane.setLeftAnchor(nodeCanvas, 320.0);
 			AnchorPane.setLeftAnchor(statsPane, 0.0);
+			statsPane.setPrefWidth(320);
 			//Add panes to the root pane, populate panes. 
 			root.getChildren().addAll(statsPane, toolbar, edgeCanvas, nodeCanvas);
-			addToolbarButtons();
+			buttons.addToolbarButtons(this);
 			//Create and draw arbitrary initial tree. 
 			//TODO Created tree should probably be more random than this; replace function.
 			tree = CreateTree.CreateCompleteTreeOffsetCircular(5, 3, 680, 620); //TODO actual finding height. 
 			DrawingUtils.drawEntireTree(tree, nodeCanvas, edgeCanvas); 
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+			//Initialize and display statistics.
+			stats = new Statistics();
+			statsBase = new StatisticsBase(statsPane);
+			stats.collectData(tree, statsBase.getStatsContent());
+		} catch(Exception e) {e.printStackTrace();}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	//Buttons should have graphics and tooltips?
-	private void addToolbarButtons(){
-		nextButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-            	modificationButtonsAllFalse();
-				ModifyTree.addNewEdge(tree); 
-				DrawingUtils.redrawEdges(tree, edgeCanvas); 
-            }
-        });
-		timedstepButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-            	if (!timedStep) {
-            		modificationButtonsAllFalse();
-            		timedstepButton.setText("Timed-step [ON]");
-            		timedStep = true; 
-            		timer = new Timer(); 
-            	    timer.scheduleAtFixedRate(new TimerTask() {
-            	        @Override
-            	        public void run() {
-            	        	Platform.runLater(new Runnable() {
-            	        		public void run() {
-            	        			ModifyTree.addNewEdge(tree); 
-            	        			DrawingUtils.redrawEdges(tree, edgeCanvas);
-            	        		}
-            	        	});
-            	        }
-            	    }, 0, timedStepInterval); 
-            	} else {modificationButtonsAllFalse();}
-            }
-        });
-		ffButton1.setOnMouseClicked( new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-            	if (!fastForward) {
-            		modificationButtonsAllFalse();
-            		ffButton1.setText("FastForward(" + fastforwardNValue + ") [ON]");
-                	fastForwardN = true;
-                	//TODO: Display label informing user about no redraws.
-            		for (int i=0; i<fastforwardNValue; i++) {ModifyTree.addNewEdge(tree);}
-                	fastForwardN = false;
-                	DrawingUtils.redrawEdges(tree, edgeCanvas); 
-            		ffButton1.setText("FastForward(" + fastforwardNValue + ")");
-            	} else {modificationButtonsAllFalse();}
-            }
-        });
-		ffButton2.setOnMouseClicked( new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-            	if (!fastForward) {
-            		modificationButtonsAllFalse();
-            		ffButton2.setText("FastForward [ON]");
-            		fastForward = true; 
-            		timer = new Timer();
-            		//TODO: Display label informing user about no redraws. 
-            	    timer.scheduleAtFixedRate(new TimerTask() {
-            	        @Override
-            	        public void run() {
-            	        	Platform.runLater(new Runnable() {
-            	        		public void run() {ModifyTree.addNewEdge(tree);}
-            	        	});
-            	        }
-            	    }, 0, 1); 
-            	    DrawingUtils.redrawEdges(tree, edgeCanvas); 
-            	} else {modificationButtonsAllFalse();}
-            }
-        });
-		toggleNodeDragAndDropButton.setOnMouseClicked( new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-            	if (!DrawingUtils.nodeDragAndDropEnabled) {
-            		toggleNodeDragAndDropButton.setText("Node drag-and-drop [ON]");
-            		DrawingUtils.nodeDragAndDropEnabled=true;
-            	} else {
-            		toggleNodeDragAndDropButton.setText("Node drag-and-drop [OFF]");
-            		DrawingUtils.nodeDragAndDropEnabled=false; 
-            	}
-            }
-        });
-		toolbar.getChildren().addAll(nextButton,
-									 timedstepButton,
-									 ffButton1,
-									 ffButton2,
-									 toggleNodeDragAndDropButton); 
-	}
-	
-	private void modificationButtonsAllFalse() {
-		timedstepButton.setText("Timed-step");
-		ffButton1.setText("FastForward(" + fastforwardNValue + ")");
-		ffButton2.setText("FastForward");
-    	fastForwardN = false;
-    	fastForward = false; 
-    	timedStep = false; 
-    	if (timer!=null) timer.cancel();
-    	DrawingUtils.redrawEdges(tree, edgeCanvas); 
-	}
+	public static void main(String[] args) {launch(args);}
 	
 }
