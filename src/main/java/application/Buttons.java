@@ -24,12 +24,12 @@ public class Buttons {
         });	
 		main.saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-				SavingPopup.displaySavingPopup(main.tree);
+				SavingPopup.displaySavingPopup(Main.tree);
 			}
         });	
 		main.loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-          		//TODO
+				LoadingPopup.displayLoadingPopup();
 			}
         });	 
 		main.importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -45,9 +45,9 @@ public class Buttons {
 		main.nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
           		modificationButtonsAllFalse(main);
-				ModifyTree.addNewEdge(main.tree); 
-				DrawingUtils.redrawEdges(main.tree, main.edgeCanvas); 
-				main.stats.collectData(main.tree, main.statsBase.getStatsContent()); 
+				ModifyTree.addNewEdge(Main.tree); 
+				DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
+				Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
 			}
         });
 		main.timedstepButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -62,9 +62,9 @@ public class Buttons {
           	        public void run() {
           	        	Platform.runLater(new Runnable() {
           	        		public void run() {
-          	        			ModifyTree.addNewEdge(main.tree); 
-          	        			DrawingUtils.redrawEdges(main.tree, main.edgeCanvas);
-          	        			main.stats.collectData(main.tree, main.statsBase.getStatsContent()); 
+          	        			ModifyTree.addNewEdge(Main.tree); 
+          	        			DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas);
+          	        			Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
           	        		}
           	        	});
           	        }
@@ -80,11 +80,11 @@ public class Buttons {
           		main.fastForwardN = true;
               	//TODO: Display label informing user about no redraws.
           		for (int i=0; i<main.fastforwardNValue; i++) {
-          			ModifyTree.addNewEdge(main.tree);
-    				main.stats.collectData(main.tree, main.statsBase.getStatsContent()); 
+          			ModifyTree.addNewEdge(Main.tree);
+    				Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
           		}
           		main.fastForwardN = false;
-              	DrawingUtils.redrawEdges(main.tree, main.edgeCanvas); 
+              	DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
               	main.ffButton1.setText("FastForward(" + main.fastforwardNValue + ")");
           	} else {modificationButtonsAllFalse(main);}
           }
@@ -102,13 +102,13 @@ public class Buttons {
           	        public void run() {
           	        	Platform.runLater(new Runnable() {
           	        		public void run() {
-          	        			ModifyTree.addNewEdge(main.tree);
-          	        			main.stats.collectData(main.tree, main.statsBase.getStatsContent()); 
+          	        			ModifyTree.addNewEdge(Main.tree);
+          	        			Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
           	        		}
           	        	});
           	        }
           	    }, 0, 1); 
-          	    DrawingUtils.redrawEdges(main.tree, main.edgeCanvas); 
+          	    DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
           	} else {modificationButtonsAllFalse(main);}
           }
       });
@@ -145,8 +145,8 @@ public class Buttons {
 		main.fastForward = false; 
 		main.timedStep = false; 
   		if (main.timer!=null) main.timer.cancel();
-  		DrawingUtils.redrawEdges(main.tree, main.edgeCanvas); 
-		main.stats.collectData(main.tree, main.statsBase.getStatsContent()); 
+  		DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
+  		Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
 	}
 	
 }

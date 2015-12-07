@@ -1,6 +1,9 @@
 package tree;
 
-public class Tree {
+import java.io.Serializable;
+
+public class Tree implements Serializable {
+	private static final long serialVersionUID = -2737528350745934458L;
 	private Node root; 
 
 	//Constructors

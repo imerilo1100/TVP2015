@@ -20,10 +20,10 @@ public class Main extends Application {
 	//Tools, random variables and data structures. 
 	int fastforwardNValue = 1000; //TODO: Give user the ability to choose another value
 	int timedStepInterval = 1000; //TODO: Give user the ability to choose another value
+	static Statistics stats;
+	static Tree tree; 
 	StatisticsBase statsBase;
-	Statistics stats;
 	Timer timer;
-	Tree tree; 
 	//Panes. 
 	AnchorPane root = new AnchorPane();
 	Pane statsPane  = new VBox();
@@ -77,7 +77,7 @@ public class Main extends Application {
 			root.getChildren().addAll(statsPane, toolbar, edgeCanvas, nodeCanvas);
 			buttons.addToolbarButtons(this);
 			//Create and draw arbitrary initial tree. 
-			//TODO Created tree should probably be more random than this; replace function.
+			//TODO: should probably be more random than this. 
 			tree = CreateTree.CreateCompleteTreeOffsetCircular(5, 3, 680, 620); //TODO actual finding height. 
 			DrawingUtils.drawEntireTree(tree, nodeCanvas, edgeCanvas); 
 			//Initialize and display statistics.
@@ -87,6 +87,5 @@ public class Main extends Application {
 		} catch(Exception e) {e.printStackTrace();}
 	}
 	
-	public static void main(String[] args) {launch(args);}
-	
+	public static void main(String[] args) {launch(args);}	
 }

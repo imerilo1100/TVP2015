@@ -13,13 +13,12 @@ import javafx.scene.input.MouseEvent;
 import statistics.StatisticsInstance;
 
 public class StatisticsBase {
-    final private ObservableList<StatisticsInstance> statsContent = FXCollections.observableArrayList();
+    private ObservableList<StatisticsInstance> statsContent = FXCollections.observableArrayList();
     private TableView<StatisticsInstance> currentTreeStats = new TableView<StatisticsInstance>();
     private TableView<StatisticsInstance> generalTreeStats = new TableView<StatisticsInstance>();
     
 	public ObservableList<StatisticsInstance> getStatsContent() {return statsContent;}
     
-	@SuppressWarnings("unchecked")
 	StatisticsBase(Pane statsPane) {
 		//Labels
 		final Label currentTreeStatsLabel = new Label("Current tree statistics:");
@@ -37,16 +36,19 @@ public class StatisticsBase {
 		averageCol.setPrefWidth(80);
 		deviationCol.setPrefWidth(80);
 		//Add cell value factories to columns
-		propertyCol.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
-		valueCol.setCellValueFactory(new PropertyValueFactory<>("currentValue"));
-		averageCol.setCellValueFactory(new PropertyValueFactory<>("averageValue"));
-		deviationCol.setCellValueFactory(new PropertyValueFactory<>("deviationValue"));
+		propertyCol.setCellValueFactory(new PropertyValueFactory<StatisticsInstance, String>("propertyName"));
+		valueCol.setCellValueFactory(new PropertyValueFactory<StatisticsInstance, Double>("currentValue"));
+		averageCol.setCellValueFactory(new PropertyValueFactory<StatisticsInstance, Double>("averageValue"));
+		deviationCol.setCellValueFactory(new PropertyValueFactory<StatisticsInstance, Double>("deviationValue"));
 		//populate columns. 
 		currentTreeStats.setItems(statsContent);
 		generalTreeStats.setItems(statsContent);
 		//Add columns to tables. 
-		currentTreeStats.getColumns().addAll(propertyCol, valueCol); //TODO: Do something about the unchecked warning.
-		generalTreeStats.getColumns().addAll(propertyCol, averageCol, deviationCol); //TODO: Do something about the unchecked warning.
+		currentTreeStats.getColumns().add(propertyCol);
+		currentTreeStats.getColumns().add(valueCol);
+		generalTreeStats.getColumns().add(propertyCol); 
+		generalTreeStats.getColumns().add(averageCol);
+		generalTreeStats.getColumns().add(deviationCol);
 		//Add mouseclick function to general tree statistics. 
 		generalTreeStats.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {

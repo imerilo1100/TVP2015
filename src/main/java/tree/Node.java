@@ -1,9 +1,11 @@
 package tree;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Node {
+public class Node implements Serializable{
+	private static final long serialVersionUID = 3531699498820992372L;
 	private String label = ""; 
 	private Node parent = null; 
 	private List<Node> children = new ArrayList<Node>(); 
