@@ -1,5 +1,5 @@
 package application;
-
+	
 //Java imports. 
 import java.util.Timer;
 //Java(fx) imports
@@ -32,6 +32,12 @@ public class Main extends Application {
 	HBox toolbar    = new HBox(); 
 	//Buttons.
 	Buttons buttons = new Buttons(); 
+	Button settingsButton = new Button("Settings");
+	Button generateButton = new Button("GenerateTree");
+	Button saveButton = new Button("Save");
+	Button loadButton = new Button("Load");
+	Button exportButton = new Button("Export");
+	Button importButton = new Button("Import");
 	Button nextButton = new Button("Next");
 	Button ffButton2 = new Button("FastForward");
 	Button ffButton1 = new Button("FastForward(" + fastforwardNValue + ")");
@@ -53,6 +59,8 @@ public class Main extends Application {
 			primaryStage.show();
 			//Set relative pane positions.
 			AnchorPane.setTopAnchor(toolbar, 0.0);
+			AnchorPane.setLeftAnchor(toolbar, 0.0);
+			AnchorPane.setRightAnchor(toolbar, 0.0);
 			AnchorPane.setTopAnchor(edgeCanvas, 30.0);
 			AnchorPane.setTopAnchor(nodeCanvas, 30.0);
 			AnchorPane.setTopAnchor(statsPane, 30.0);

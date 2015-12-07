@@ -12,6 +12,36 @@ public class Buttons {
 
 	//TODO: Buttons should have graphics and tooltips?
 	protected void addToolbarButtons(Main main){
+		main.settingsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+				//TODO
+			}
+        });	
+		main.generateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+          		//TODO
+			}
+        });	
+		main.saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+				SavingPopup.displaySavingPopup(main.tree);
+			}
+        });	
+		main.loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+          		//TODO
+			}
+        });	 
+		main.importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+          		//TODO
+			}
+        });	 
+		main.exportButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+          		//TODO
+			}
+        });	
 		main.nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
           		modificationButtonsAllFalse(main);
@@ -93,7 +123,14 @@ public class Buttons {
           	}
           }
       });
-		main.toolbar.getChildren().addAll(main.nextButton,
+		main.toolbar.getChildren().addAll(
+										  main.settingsButton,
+										  main.generateButton,
+										  main.saveButton,
+										  main.loadButton, 
+										  main.importButton, 
+										  main.exportButton,
+										  main.nextButton,
 										  main.timedstepButton,
 										  main.ffButton1,
 										  main.ffButton2,
