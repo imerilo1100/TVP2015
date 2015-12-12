@@ -13,11 +13,11 @@ import javafx.scene.input.MouseEvent;
 import statistics.StatisticsInstance;
 
 public class StatisticsBase {
-    private ObservableList<StatisticsInstance> statsContent = FXCollections.observableArrayList();
+    private static ObservableList<StatisticsInstance> statsContent = FXCollections.observableArrayList();
     private TableView<StatisticsInstance> currentTreeStats = new TableView<StatisticsInstance>();
     private TableView<StatisticsInstance> generalTreeStats = new TableView<StatisticsInstance>();
     
-	public ObservableList<StatisticsInstance> getStatsContent() {return statsContent;}
+	public static ObservableList<StatisticsInstance> getStatsContent() {return statsContent;}
     
 	StatisticsBase(Pane statsPane) {
 		//Labels

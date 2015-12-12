@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import tree.ModifyTree;
 
+@SuppressWarnings("restriction")
 public class Buttons {
 
 	//TODO: Buttons should have graphics and tooltips?
@@ -39,7 +40,12 @@ public class Buttons {
         });	 
 		main.exportButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-          		//TODO
+				//TODO
+			}
+        });	
+		main.exportStatisticsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent event) {
+				ExportStatisticsPopup.displayExportPopup();
 			}
         });	
 		main.nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -130,6 +136,7 @@ public class Buttons {
 										  main.loadButton, 
 										  main.importButton, 
 										  main.exportButton,
+										  main.exportStatisticsButton,
 										  main.nextButton,
 										  main.timedstepButton,
 										  main.ffButton1,

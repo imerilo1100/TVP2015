@@ -38,6 +38,7 @@ public class Main extends Application {
 	Button loadButton = new Button("Load");
 	Button exportButton = new Button("Export");
 	Button importButton = new Button("Import");
+	Button exportStatisticsButton = new Button("Export statistics");
 	Button nextButton = new Button("Next");
 	Button ffButton2 = new Button("FastForward");
 	Button ffButton1 = new Button("FastForward(" + fastforwardNValue + ")");

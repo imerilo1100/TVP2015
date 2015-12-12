@@ -33,6 +33,5 @@ public abstract class StatisticsInstance {
 		double deviationsSquared = 0.0;
 		for(double value:values){deviationsSquared += Math.pow(value-averageValue.getValue(), 2);}
 		deviationValue.set(Math.sqrt(deviationsSquared/values.size()));
-	}
-	
+	}	
 }
