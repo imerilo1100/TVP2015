@@ -95,7 +95,7 @@ public class Statistics {
 			writer.append(String.valueOf(i));
 			for (int j = 0; j < statsValues.size(); j++) {
 				try {
-					writer.append(";" + statsValues.get(j).get(j).toString());
+					writer.append(";" + statsValues.get(j).get(i).toString());
 				} catch (IndexOutOfBoundsException e) {
 					writer.append(";N/A");
 				}
