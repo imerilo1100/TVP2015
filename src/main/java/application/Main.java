@@ -38,7 +38,6 @@ public class Main extends Application {
 	Button loadButton = new Button("Load");
 	Button exportButton = new Button("Export");
 	Button importButton = new Button("Import");
-	Button exportStatisticsButton = new Button("Export statistics");
 	Button nextButton = new Button("Next");
 	Button ffButton2 = new Button("FastForward");
 	Button ffButton1 = new Button("FastForward(" + fastforwardNValue + ")");
@@ -84,7 +83,7 @@ public class Main extends Application {
 			//Initialize and display statistics.
 			stats = new Statistics();
 			statsBase = new StatisticsBase(statsPane);
-			stats.collectData(tree, statsBase.getStatsContent());
+			stats.collectData(tree, StatisticsBase.getStatsContent());
 		} catch(Exception e) {e.printStackTrace();}
 	}
 	

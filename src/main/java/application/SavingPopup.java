@@ -29,6 +29,7 @@ public class SavingPopup {
 			@Override public void handle(MouseEvent event) {
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Select location or file to be overwritten");
+				fileChooser.setInitialFileName("SpanningTreeSave.dat");
 				File newFile = fileChooser.showSaveDialog(savingPopup);
 				fileLocation.setText(newFile.toString());
 			}
@@ -37,7 +38,9 @@ public class SavingPopup {
 			@Override public void handle(MouseEvent event) {
 				ObjectOutputStream out;
 				try {
-					out = new ObjectOutputStream(new FileOutputStream(new File(fileLocation.getText()+".dat")));
+					String filename = fileLocation.getText();
+					if (!filename.endsWith(".dat")) filename += ".dat";
+					out = new ObjectOutputStream(new FileOutputStream(new File(filename)));
 					out.writeObject(tree);
 					out.close(); 
 				} catch (Exception e) {

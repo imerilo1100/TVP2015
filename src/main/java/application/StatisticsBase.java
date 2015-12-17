@@ -16,7 +16,6 @@ public class StatisticsBase {
     private static ObservableList<StatisticsInstance> statsContent = FXCollections.observableArrayList();
     private TableView<StatisticsInstance> currentTreeStats = new TableView<StatisticsInstance>();
     private TableView<StatisticsInstance> generalTreeStats = new TableView<StatisticsInstance>();
-    
 	public static ObservableList<StatisticsInstance> getStatsContent() {return statsContent;}
     
 	StatisticsBase(Pane statsPane) {

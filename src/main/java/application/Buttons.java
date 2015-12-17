@@ -8,19 +8,18 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import tree.ModifyTree;
 
-@SuppressWarnings("restriction")
 public class Buttons {
 
 	//TODO: Buttons should have graphics and tooltips?
 	protected void addToolbarButtons(Main main){
 		main.settingsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-				//TODO
+				SettingsPopup.displaySettingsPopup(main);
 			}
         });	
 		main.generateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-          		//TODO
+				GenerateTreePopup.displayGenerateTreePopup(main);
 			}
         });	
 		main.saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -30,22 +29,17 @@ public class Buttons {
         });	
 		main.loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-				LoadingPopup.displayLoadingPopup();
+				LoadingPopup.displayLoadingPopup(main);
 			}
         });	 
 		main.importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-          		//TODO
+				ImportPopup.displayImportPopup(main);
 			}
         });	 
 		main.exportButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
-				//TODO
-			}
-        });	
-		main.exportStatisticsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent event) {
-				ExportStatisticsPopup.displayExportPopup();
+				ExportPopup.displayExportPopup();
 			}
         });	
 		main.nextButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -53,7 +47,7 @@ public class Buttons {
           		modificationButtonsAllFalse(main);
 				ModifyTree.addNewEdge(Main.tree); 
 				DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
-				Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
+				Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent()); 
 			}
         });
 		main.timedstepButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -70,7 +64,7 @@ public class Buttons {
           	        		public void run() {
           	        			ModifyTree.addNewEdge(Main.tree); 
           	        			DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas);
-          	        			Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
+          	        			Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent()); 
           	        		}
           	        	});
           	        }
@@ -87,7 +81,7 @@ public class Buttons {
               	//TODO: Display label informing user about no redraws.
           		for (int i=0; i<main.fastforwardNValue; i++) {
           			ModifyTree.addNewEdge(Main.tree);
-    				Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
+    				Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent()); 
           		}
           		main.fastForwardN = false;
               	DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
@@ -109,7 +103,7 @@ public class Buttons {
           	        	Platform.runLater(new Runnable() {
           	        		public void run() {
           	        			ModifyTree.addNewEdge(Main.tree);
-          	        			Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
+          	        			Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent()); 
           	        		}
           	        	});
           	        }
@@ -136,7 +130,6 @@ public class Buttons {
 										  main.loadButton, 
 										  main.importButton, 
 										  main.exportButton,
-										  main.exportStatisticsButton,
 										  main.nextButton,
 										  main.timedstepButton,
 										  main.ffButton1,
@@ -153,7 +146,7 @@ public class Buttons {
 		main.timedStep = false; 
   		if (main.timer!=null) main.timer.cancel();
   		DrawingUtils.redrawEdges(Main.tree, main.edgeCanvas); 
-  		Main.stats.collectData(Main.tree, main.statsBase.getStatsContent()); 
+  		Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent()); 
 	}
 	
 }

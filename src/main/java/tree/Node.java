@@ -58,8 +58,6 @@ public class Node implements Serializable{
 	} 
 	
 	@Override
-	public String toString() {
-		return label + children;
-	}
+	public String toString() {return label +" (" + x + "," + y + ") " + children;}
 	
 }

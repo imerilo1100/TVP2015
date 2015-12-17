@@ -3,7 +3,6 @@ package application;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +19,7 @@ public class LoadingPopup {
 	static Button browseButton = new Button("Browse");
 	static Button loadButton = new Button("Load");
 
-	public static void displayLoadingPopup() {
+	public static void displayLoadingPopup(Main main) {
 		Stage loadingPopup = new Stage();
 		loadingPopup.setTitle("Loading a tree");
 		GridPane loadingPopupPane  = new GridPane();
@@ -40,6 +39,8 @@ public class LoadingPopup {
 					in = new ObjectInputStream(new FileInputStream(new File(fileLocation.getText())));
 					Main.tree = (Tree)(in.readObject());
 					Main.stats = new Statistics();
+					Main.stats.collectData(Main.tree, StatisticsBase.getStatsContent());
+					DrawingUtils.drawEntireTree(Main.tree, main.nodeCanvas, main.edgeCanvas);
 					in.close(); 
 				} catch (Exception e) {
 					//TODO: proper error message to user. 
